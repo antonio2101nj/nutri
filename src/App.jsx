@@ -27,6 +27,9 @@ function AppRoutes() {
 
   // Redirecionar baseado no role do usuário
   const getDefaultRoute = () => {
+    console.log("AppRoutes - User:", user)
+    console.log("AppRoutes - Profile:", profile)
+    console.log("AppRoutes - Profile Role:", profile?.role)
     if (profile?.role === 'admin') {
       return '/admin'
     }

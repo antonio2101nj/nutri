@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
       }
       
       setLoading(false)
+      console.log("AuthContext - Initial Load: User", session?.user, "Profile", userProfile)
     }
 
     getSession()
@@ -40,8 +41,10 @@ export const AuthProvider = ({ children }) => {
         if (session?.user) {
           const userProfile = await getUserProfile(session.user.id)
           setProfile(userProfile)
+          console.log("AuthContext - Auth State Change: Event", event, "User", session.user, "Profile", userProfile)
         } else {
           setProfile(null)
+          console.log("AuthContext - Auth State Change: User logged out")
         }
         
         setLoading(false)

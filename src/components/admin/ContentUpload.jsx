@@ -51,7 +51,7 @@ export const ContentUpload = () => {
     const filePath = `${contentType}s/${fileName}`
 
     const { data, error } = await supabase.storage
-      .from('content_media')
+      .from('content-media')
       .upload(filePath, file)
 
     if (error) {
@@ -60,7 +60,7 @@ export const ContentUpload = () => {
 
     // Obter URL pública do arquivo
     const { data: { publicUrl } } = supabase.storage
-      .from('content_media')
+      .from('content-media')
       .getPublicUrl(filePath)
 
     return publicUrl

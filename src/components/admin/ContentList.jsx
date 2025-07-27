@@ -61,8 +61,7 @@ export const ContentList = () => {
         const filePath = `${contentType}/${fileName}`
 
         const { error: storageError } = await supabase.storage
-          .from('content_media')
-          .remove([filePath])
+         .from(\'content-media\')          .remove([filePath])
 
         if (storageError) {
           console.warn('Erro ao deletar arquivo do storage:', storageError)

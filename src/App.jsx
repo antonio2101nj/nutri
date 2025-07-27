@@ -26,40 +26,46 @@ function AppRoutes() {
   }
 
   // Redirecionar baseado no role do usuário
-  const getDefaultRoute = () => {
-    console.log("AppRoutes - User:", user)
-    console.log("AppRoutes - Profile:", profile)
-    console.log("AppRoutes - Profile Role:", profile?.role)
-    if (profile?.role === 'admin') {
-      return '/admin'
-    }
-    return '/user'
+  if (profile?.role === 'admin') {
+    return (
+      <Routes>
+        <Route path="/" element={<Navigate to="/admin" replace />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminPanel />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
+      </Routes>
+    )
+  } else if (profile?.role === 'user') {
+    return (
+      <Routes>
+        <Route path="/" element={<Navigate to="/user" replace />} />
+        <Route 
+          path="/user" 
+          element={
+            <ProtectedRoute>
+              <UserPanel />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="*" element={<Navigate to="/user" replace />} />
+      </Routes>
+    )
   }
 
+  // Fallback, caso o perfil ainda não tenha sido carregado ou a role seja desconhecida
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to={getDefaultRoute()} replace />} />
-      
-      <Route 
-        path="/admin" 
-        element={
-          <ProtectedRoute requireAdmin={true}>
-            <AdminPanel />
-          </ProtectedRoute>
-        } 
-      />
-      
-      <Route 
-        path="/user" 
-        element={
-          <ProtectedRoute>
-            <UserPanel />
-          </ProtectedRoute>
-        } 
-      />
-      
-      <Route path="*" element={<Navigate to={getDefaultRoute()} replace />} />
-    </Routes>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+        <p className="text-gray-600">Carregando perfil...</p>
+      </div>
+    </div>
   )
 }
 

@@ -5,15 +5,16 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Eye, EyeOff } from 'lucide-react'
+import logoImage from '../../assets/logo.png'
 
 export const RegisterForm = ({ onToggleMode }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [fullName, setFullName] = useState('')
-  const [role, setRole] = useState('user')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -40,7 +41,7 @@ export const RegisterForm = ({ onToggleMode }) => {
 
     const { error } = await signUp(email, password, {
       full_name: fullName,
-      role: role
+      role: 'user'
     })
     
     if (error) {
@@ -54,11 +55,20 @@ export const RegisterForm = ({ onToggleMode }) => {
 
   return (
     <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl text-center">Registro</CardTitle>
-        <CardDescription className="text-center">
-          Crie sua conta para acessar o sistema
-        </CardDescription>
+      <CardHeader className="space-y-4">
+        <div className="flex flex-col items-center space-y-3">
+          <img 
+            src={logoImage} 
+            alt="PLAN DE VITALIDAD Logo" 
+            className="w-16 h-16 object-contain"
+          />
+          <div className="text-center">
+            <CardTitle className="text-2xl font-bold text-green-700">PLAN DE VITALIDAD</CardTitle>
+            <CardDescription className="text-green-600 mt-1">
+              Junte-se à nossa comunidade de bem-estar
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -88,43 +98,65 @@ export const RegisterForm = ({ onToggleMode }) => {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="role">Tipo de Conta</Label>
-            <Select value={role} onValueChange={setRole} disabled={loading}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o tipo de conta" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="user">Usuário</SelectItem>
-                <SelectItem value="admin">Administrador</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="password">Senha</Label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Sua senha (mín. 6 caracteres)"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Sua senha (mín. 6 caracteres)"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+                className="pr-10"
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                onClick={() => setShowPassword(!showPassword)}
+                disabled={loading}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="confirmPassword">Confirmar Senha</Label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              placeholder="Confirme sua senha"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
+            <div className="relative">
+              <Input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirme sua senha"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                disabled={loading}
+                className="pr-10"
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                disabled={loading}
+              >
+                {showConfirmPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
           </div>
 
           {error && (

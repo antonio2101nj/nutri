@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LogOut, Upload, FileText, Video, Users } from 'lucide-react'
+import { ContentUpload } from '../components/admin/ContentUpload'
+import { ContentList } from '../components/admin/ContentList'
 
 export const AdminPanel = () => {
   const { user, profile, signOut } = useAuth()
@@ -72,20 +74,8 @@ export const AdminPanel = () => {
           </TabsList>
 
           <TabsContent value="content" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Gerenciar Textos</CardTitle>
-                <CardDescription>
-                  Crie e edite textos que aparecerão no painel do usuário
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8 text-gray-500">
-                  <FileText className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                  <p>Funcionalidade de gerenciamento de textos será implementada aqui</p>
-                </div>
-              </CardContent>
-            </Card>
+            <ContentUpload />
+            <ContentList />
           </TabsContent>
 
           <TabsContent value="media" className="space-y-6">
@@ -93,13 +83,14 @@ export const AdminPanel = () => {
               <CardHeader>
                 <CardTitle>Gerenciar Mídia</CardTitle>
                 <CardDescription>
-                  Faça upload de vídeos, PDFs e outras mídias
+                  Upload de vídeos, PDFs e imagens foi integrado na aba "Conteúdo"
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8 text-gray-500">
                   <Video className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                  <p>Funcionalidade de upload de mídia será implementada aqui</p>
+                  <p>Todas as funcionalidades de mídia estão disponíveis na aba "Conteúdo"</p>
+                  <p className="text-sm mt-2">Você pode fazer upload de vídeos, PDFs e imagens lá</p>
                 </div>
               </CardContent>
             </Card>

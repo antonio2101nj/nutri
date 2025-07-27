@@ -2,7 +2,8 @@ import { useAuth } from '../contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { LogOut, FileText, Video, Download } from 'lucide-react'
+import { LogOut, FileText, Video, Download, FileImage } from 'lucide-react'
+import { ContentDisplay } from '../components/user/ContentDisplay'
 
 export const UserPanel = () => {
   const { user, profile, signOut } = useAuth()
@@ -52,7 +53,7 @@ export const UserPanel = () => {
         </div>
 
         <Tabs defaultValue="content" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="content" className="flex items-center space-x-2">
               <FileText className="h-4 w-4" />
               <span>Textos</span>
@@ -61,9 +62,13 @@ export const UserPanel = () => {
               <Video className="h-4 w-4" />
               <span>Vídeos</span>
             </TabsTrigger>
+            <TabsTrigger value="images" className="flex items-center space-x-2">
+              <FileImage className="h-4 w-4" />
+              <span>Imagens</span>
+            </TabsTrigger>
             <TabsTrigger value="documents" className="flex items-center space-x-2">
               <Download className="h-4 w-4" />
-              <span>Documentos</span>
+              <span>PDFs</span>
             </TabsTrigger>
           </TabsList>
 
@@ -76,11 +81,7 @@ export const UserPanel = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-gray-500">
-                  <FileText className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                  <p>Nenhum texto disponível no momento</p>
-                  <p className="text-sm mt-2">Os textos compartilhados aparecerão aqui automaticamente</p>
-                </div>
+                <ContentDisplay contentType="text" />
               </CardContent>
             </Card>
           </TabsContent>
@@ -94,11 +95,21 @@ export const UserPanel = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-gray-500">
-                  <Video className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                  <p>Nenhum vídeo disponível no momento</p>
-                  <p className="text-sm mt-2">Os vídeos compartilhados aparecerão aqui automaticamente</p>
-                </div>
+                <ContentDisplay contentType="video" />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="images" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Imagens Disponíveis</CardTitle>
+                <CardDescription>
+                  Imagens compartilhadas pelos administradores
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ContentDisplay contentType="image" />
               </CardContent>
             </Card>
           </TabsContent>
@@ -106,17 +117,13 @@ export const UserPanel = () => {
           <TabsContent value="documents" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Documentos Disponíveis</CardTitle>
+                <CardTitle>Documentos PDF Disponíveis</CardTitle>
                 <CardDescription>
                   PDFs e outros documentos compartilhados pelos administradores
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-gray-500">
-                  <Download className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                  <p>Nenhum documento disponível no momento</p>
-                  <p className="text-sm mt-2">Os documentos compartilhados aparecerão aqui automaticamente</p>
-                </div>
+                <ContentDisplay contentType="pdf" />
               </CardContent>
             </Card>
           </TabsContent>

@@ -53,7 +53,7 @@ export const ContentUpload = () => {
     
     // URLs de exemplo para demonstração dos visualizadores
     const exampleUrls = {
-      'pdf': 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf',
+      'pdf': 'https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf',
       'image': 'https://via.placeholder.com/800x600/4CAF50/white?text=Imagem+de+Exemplo+PLAN+DE+VITALIDAD',
       'video': 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
     }

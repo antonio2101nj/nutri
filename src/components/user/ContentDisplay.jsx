@@ -130,21 +130,21 @@ export const ContentDisplay = ({ contentType }) => {
           />
         )}
 
-        {item.type === 'image' && item.media_url && (
+        {item.type === 'image' && item.file_url && (
           <ImageViewer 
-            url={item.media_url}
+            url={item.file_url}
             title={item.title}
           />
         )}
 
-        {item.type === 'video' && item.media_url && (
+        {item.type === 'video' && item.file_url && (
           <VideoViewer 
-            url={item.media_url}
+            url={item.file_url}
             title={item.title}
           />
         )}
 
-        {item.type === 'pdf' && item.media_url && (
+        {item.type === 'pdf' && item.file_url && (
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-center space-x-2 text-gray-600 mb-4">
@@ -152,7 +152,7 @@ export const ContentDisplay = ({ contentType }) => {
                 <span className="text-lg font-medium">Documento PDF</span>
               </div>
               <PDFViewer 
-                url={item.media_url}
+                url={item.file_url}
                 title={item.title}
               />
             </CardContent>

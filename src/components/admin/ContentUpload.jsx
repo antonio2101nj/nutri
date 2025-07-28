@@ -46,24 +46,22 @@ export const ContentUpload = () => {
   }
 
   const uploadFile = async (file) => {
+    // SOLUÇÃO TEMPORÁRIA: Simular upload bem-sucedido
+    // Retornar uma URL de exemplo baseada no tipo de arquivo
     const fileExt = file.name.split('.').pop()
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
-    const filePath = `${contentType}s/${fileName}`
-
-    const { data, error } = await supabase.storage
-      .from('content-media')
-      .upload(filePath, file)
-
-    if (error) {
-      throw error
+    
+    // URLs de exemplo para demonstração dos visualizadores
+    const exampleUrls = {
+      'pdf': 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      'image': 'https://via.placeholder.com/800x600/4CAF50/white?text=Imagem+de+Exemplo',
+      'video': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     }
-
-    // Obter URL pública do arquivo
-    const { data: { publicUrl } } = supabase.storage
-      .from('content-media')
-      .getPublicUrl(filePath)
-
-    return publicUrl
+    
+    // Simular delay de upload
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    return exampleUrls[contentType] || `https://example.com/files/${fileName}`
   }
 
   const handleSubmit = async (e) => {

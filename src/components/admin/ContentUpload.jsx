@@ -95,8 +95,6 @@ export const ContentUpload = () => {
       }
 
       // Inserir registro na tabela content
-      const { data: { user } } = await supabase.auth.getUser()
-      
       const { error: insertError } = await supabase
         .from('content')
         .insert({
@@ -104,8 +102,7 @@ export const ContentUpload = () => {
           description: description.trim() || null,
           type: contentType,
           text_content: contentType === 'text' ? contentText.trim() : null,
-          file_url: mediaUrl,
-          created_by: user?.id
+          file_url: mediaUrl
         })
 
       if (insertError) {

@@ -102,7 +102,7 @@ export const ContentUpload = () => {
           description: description.trim() || null,
           type: contentType,
           text_content: contentType === 'text' ? contentText.trim() : null,
-          media_url: mediaUrl
+          file_url: mediaUrl
         })
 
       if (insertError) {
